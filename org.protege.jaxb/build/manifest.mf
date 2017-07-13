@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.3
+Created-By: 1.7.0_80-b15 (Oracle Corporation)
+Bundle-ManifestVersion: 2
+Bundle-Name: JAXB Libraries
+Bundle-SymbolicName: org.protege.jaxb
+Bundle-Version: 1.0.0.2016_06_08_0100
+Bundle-ClassPath: .,lib/activation.jar,lib/jaxb-api.jar,lib/jaxb-impl.
+ jar,lib/jsr173_1.0_api.jar
+Export-Package: javax.activation,javax.xml.bind,javax.xml.bind.annotat
+ ion,javax.xml.bind.annotation.adapters,javax.xml.bind.attachment,java
+ x.xml.bind.helpers,javax.xml.bind.util,javax.xml.stream,javax.xml.str
+ eam.events,javax.xml.stream.util
+Import-Package: org.osgi.framework,javax.activation,javax.xml.bind,jav
+ ax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.b
+ ind.attachment,javax.xml.bind.helpers,javax.xml.bind.util,javax.xml.s
+ tream,javax.xml.stream.events,javax.xml.stream.util
+Bundle-Description: JAXB Libraries Packaged as a bundle
+Built-By: filipe
+

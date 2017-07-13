@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAXB Libraries
+Bundle-SymbolicName: org.protege.jaxb
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .,
+ lib/activation.jar,
+ lib/jaxb-api.jar,
+ lib/jaxb-impl.jar,
+ lib/jsr173_1.0_api.jar
+Export-Package: javax.activation,
+ javax.xml.bind,
+ javax.xml.bind.annotation,
+ javax.xml.bind.annotation.adapters,
+ javax.xml.bind.attachment,
+ javax.xml.bind.helpers,
+ javax.xml.bind.util,
+ javax.xml.stream,
+ javax.xml.stream.events,
+ javax.xml.stream.util
+Import-Package: org.osgi.framework,
+ javax.activation,
+ javax.xml.bind,
+ javax.xml.bind.annotation,
+ javax.xml.bind.annotation.adapters,
+ javax.xml.bind.attachment,
+ javax.xml.bind.helpers,
+ javax.xml.bind.util,
+ javax.xml.stream,
+ javax.xml.stream.events,
+ javax.xml.stream.util
+Bundle-Description: JAXB Libraries Packaged as a bundle

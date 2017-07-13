@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<plugin>
+    
+    <extension id="DLQueryTab"
+               point="org.protege.editor.core.application.WorkspaceTab">
+        <label value="DL Query"/>
+        <class value="org.protege.editor.owl.ui.OWLWorkspaceViewsTab"/>
+        <editorKitId value="OWLEditorKit"/>
+        <index value="Q"/>
+        <defaultViewConfigFileName value="viewconfig-dlquerytab.xml"/>
+    </extension>
+
+    <extension id="OWLClassExpressionEditorViewComponent"
+     		   point="org.protege.editor.core.application.ViewComponent">
+        <label value="DL query"/>
+        <class value="org.coode.dlquery.OWLClassExpressionEditorViewComponent"/>
+        <headerColor value="@org.protege.classcolor"/>
+        <category value="@org.protege.querycategory"/>
+    </extension>
+
+</plugin>

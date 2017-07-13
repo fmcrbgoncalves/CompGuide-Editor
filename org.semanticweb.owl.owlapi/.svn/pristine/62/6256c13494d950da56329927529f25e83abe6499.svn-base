@@ -1,0 +1,13 @@
+Bundle-ManifestVersion: 2
+Bundle-Name: The OWL API
+Bundle-SymbolicName: org.semanticweb.owl.owlapi
+Bundle-DocURL: http://owlapi.sourceforge.net
+Bundle-Version: ${bundle.version}
+Built-By: ${user.name}
+Bundle-Description: The OWL API library (http://sourceforge.net/projects/owlapi/) as a bundle
+No-Plugin-XML: true
+Export-Template: *
+Import-Template: javax.*;version="0.0.0",
+ org.w3c.*;version="0.0.0",
+ org.xml.*;version="0.0.0",
+ *;version="${bundle.version}"

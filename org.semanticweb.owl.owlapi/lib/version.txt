@@ -1,0 +1,3 @@
+OWLAPI 3.4.2 (2012-12-05) from unknown git revision
+
+Remember to update build.xml.

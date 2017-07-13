@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <VSNode splits="0.03303805664610902 0.09578457332330995">
+        <CNode>
+            <Component label="Individuals by type">
+                <Property id="pluginId" value="org.protege.editor.owl.OWLIndividualsByType"/>
+            </Component>
+        </CNode>
+        <HSNode splits="4.237253606573457E-6 8.866391939766424E-7">
+        	<CNode>
+                <Component label="OntoGraf">
+                    <Property id="pluginId" value="org.protege.ontograf.OntoGrafView"/>
+                </Component>
+            </CNode>
+        	<CNode>
+                <Component label="CGuide Wizard Options">
+                    <Property id="pluginId" value="org.di.uminho.cguide.menu.ViewComponent"/>
+                </Component>
+            </CNode>
+        </HSNode>
+    </VSNode>
+</layout>

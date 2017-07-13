@@ -1,0 +1,145 @@
+<?xml version="1.0"?> 
+<project name="owlapibundle" default="install" basedir=".">
+   <!-- To run this build file set the environment variable
+        PROTEGE_HOME to point to a protege distribution and type ant
+        install or jar.
+     -->
+
+   <property environment="env"/>
+   <property name = "protege.home"      location="${env.PROTEGE_HOME}"/>
+   <property file = "${protege.home}/build.properties"/>
+
+   <property file="local.properties"/>
+   <property name = "bundlor.home"      location="${env.BUNDLOR_HOME}"/>
+
+   <property name="build"               location="./build"/>
+   <property name="bundle.dir"          location="${build}"/>
+   <property name="classes"             location="${build}/classes"/>
+   <property name="plugin"              value="org.semanticweb.owl.owlapi"/>
+   <property name="owlapi.jar"          location="${build}/${plugin}.jar"/>
+   <property name = "protege.plugins"   location="${protege.home}/plugins"/>
+   <property name = "manifest"          location = "${build}/manifest.mf"/>
+   <property name = "manifest.bundlor"  location = "./META-INF/manifest.bundlor"/>
+   <property name = "extension.lib"     value="protege-owlapi-extensions.jar"/>
+   <property name = "jar.staging"       location="${build}/jar.contents"/>
+    
+   <property name="major.version" value="3"/>
+   <property name="minor.version" value="4"/>
+   <property name="micro.version" value="2"/>
+   <property name="release.date"  value="2012_12_05"/>
+
+
+   <target name = "init">
+     <echo message="**********************************************************"/>
+	 <echo message="Using Protege Home = ${protege.home}"/>
+     <echo message="Using Java Version = ${ant.java.version}" />
+     <echo message="**********************************************************"/>
+     <tstamp>
+       <format property="build.time" pattern="yyyy_MM_dd_hhmm"/>
+     </tstamp>
+     <mkdir dir="${classes}"/>
+     <property name="bundle.version"
+               value="${major.version}.${minor.version}.${micro.version}.${release.date}"/>
+     <condition property="use.bundlor">
+       <and>
+         <available file="${bundlor.home}"     type = "dir"/>
+         <available file="${manifest.bundlor}" type = "file"/>
+       </and>
+     </condition>
+   </target>
+
+   <target name="copy.resources" depends="init">
+       <copy file="./lib/owlapi-bin.jar"
+             tofile="${owlapi.jar}"/>
+   </target>
+
+   <target name="use.existing.manifest" depends="init" unless="use.bundlor">
+     <copy tofile="${manifest}" 
+           file="META-INF/MANIFEST.MF" overwrite="true"/>
+     <manifest file="${manifest}" 
+               mode = "update">
+        <attribute name="Built-By" value = "${user.name}"/>
+        <attribute name="Bundle-Version" value="${bundle.version}"/>
+     </manifest>
+   </target>
+
+   <target name="bundlor.manifest" depends="copy.resources" if="use.bundlor">
+      <java classname="org.eclipse.virgo.bundlor.commandline.Bundlor"
+            failonerror="true" fork="true">
+        <classpath>
+          <fileset dir="${bundlor.home}/plugins" includes="*.jar"/>
+        </classpath>
+        <jvmarg value="-Dbundle.version=${bundle.version}"/>
+        <jvmarg value="-Duser.name=${user.name}"/>
+        <jvmarg value="-Dplugin=${plugin}"/>
+        <arg value = "-i"/> <arg value="${owlapi.jar}"/>
+        <arg value = "-m"/> <arg value="./META-INF/manifest.bundlor"/>
+        <arg value = "-o"/> <arg value = "."/>
+      </java>
+   	 <manifest file="META-INF/MANIFEST.MF" mode="update"> <!-- gross kludged hack to make eclipse happy -->
+   	 	<attribute name="Bundle-Classpath" value=".,lib/owlapi-bin.jar"/>
+   	 </manifest>
+     <copy tofile="${manifest}" 
+           file="META-INF/MANIFEST.MF" overwrite="true"/>
+   </target>
+
+  <target name="jar"
+	      depends="copy.resources, use.existing.manifest,bundlor.manifest">
+    <jar destfile="${owlapi.jar}"
+         manifest="${manifest}"
+         update="true"/>
+  </target>
+
+  <target name="install" 
+          depends="jar">
+      <copy file="${owlapi.jar}" todir="${protege.plugins}"/>
+  </target> 
+
+  <target name = "junit" depends="init"/>
+  
+  <!-- this target is to be used in the case where this is 
+       not part of a bigger build                          -->
+  <target name="clean">
+      <delete dir="${build}"/>
+  </target>
+
+   <!-- ===================================================================  -->
+   <!-- Distribution Support - Optional                                      -->
+   <!-- ===================================================================  -->
+
+   <property name="svn.root" value="http://smi-protege.stanford.edu/repos/protege/protege4/plugins/org.semanticweb.owl.owlapi/trunk"/>
+
+
+   <property name="update.properties.file" value="${svn.root}/etc/update.properties"/>
+   <property name="readme.file"            value="${svn.root}/etc/owlapi-readme.html"/>
+
+   <property name="download"               value="http://smi-protege.stanford.edu/protege4/plugins/4.1r/${plugin}.jar"/>
+
+
+   <target name = "dist" depends="jar">
+       <echo file="./etc/update.properties" append="false">
+id=${plugin}
+version=${bundle.version}
+download=${download}
+name=OWL API Library Plugin
+readme=${readme.file}
+license=http://www.gnu.org/licenses/lgpl.html
+author=Matthew Horridge for the CO-ODE project
+       </echo>
+       <echo message="The build file should ensure that"/>
+       <echo message="1. The bundle version and id is correct."/>
+       <echo message="Check the following things"/>
+       <echo message="1. The main repository uses "/>
+       <echo message="      ${update.properties.file}"/>
+       <echo message="   to find this update"/>
+       <echo message="2. The update.properties can be found at "/>
+       <echo message="      ${update.properties.file}"/>
+       <echo message="3. The readme file for this update can be found at"/>
+       <echo message="      ${readme.file}"/>
+       <echo message="4. The download for this update can be found at"/>
+       <echo message="      ${download}"/>
+   </target>
+
+
+
+</project>

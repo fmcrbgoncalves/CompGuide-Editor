@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
+	<groupId>edu.stanford.protege</groupId>
+	<artifactId>org.semanticweb.owl.owlapi</artifactId>
+	<!-- Version of this bundle should by in sync with the version of the OWL API that it wraps. -->
+    <version>3.4.5-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<name>OWL API OSGI Bundle</name>
+	<description>The OWL API libraries wrapped in an OSGi Bundle for use by the Protege Desktop application.</description>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/copyleft/lesser.html</url>
+		</license>
+	</licenses>
+	
+	<scm>
+		<connection>scm:svn:http://smi-protege.stanford.edu/repos/protege/protege4/plugins/org.semanticweb.owl.owlapi/trunk/</connection>
+		<developerConnection>scm:svn:https://smi-protege.stanford.edu/repos/protege/protege4/plugins/org.semanticweb.owl.owlapi/trunk/</developerConnection>
+		<url>http://smi-protege.stanford.edu/svn/protege4/plugins/org.semanticweb.owl.owlapi/trunk/</url>
+	</scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>3.4.4</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+            <plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+						<Export-Package>
+							com.clarkparsia.*, 
+							de.uulm.*, 
+							org.coode.*, 
+							org.semanticweb.owlapi.*;-split-package:=merge-first, 
+							uk.ac.manchester.*;-split-package:=merge-first
+						</Export-Package>
+					</instructions>
+					<executions>
+						<execution>
+							<id>bundle-manifest</id>
+							<phase>install</phase>
+							<goals>    
+								<goal>manifest</goal>
+							</goals>   
+						</execution>
+					</executions>
+				</configuration>
+            </plugin>
+		</plugins>
+	</build>
+</project>
